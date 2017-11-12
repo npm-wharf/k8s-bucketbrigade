@@ -1,0 +1,25 @@
+name = "k8s-gs-buckets.<%=namespace%>"
+image = "npmwharf/k8s-bucketbrigade:latest"
+job = true
+command = "brigade"
+args = "create --buckets=$(BUCKETS) --acl=$(BUCKET_ACL) --owner=$(BUCKET_OWNER)"
+
+[scale]
+  containers = 1
+
+[env]
+  BUCKETS = "<%=buckets%>"
+  BUCKET_ACL = "<%=acl%>"
+  BUCKET_OWNER = "<%=owner%>"
+  GS_PROJECT_ID = "<%=project_id%>"
+  GS_USER_ID = "<%=gs_id%>"
+  GS_USER_KEY = "/app/data/private.key"
+
+[mounts]
+  data = "/app/data"
+
+[volumes]
+  data = "google-api::private.key"
+
+[deploy]
+  pull = "Always"

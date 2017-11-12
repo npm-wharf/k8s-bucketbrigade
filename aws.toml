@@ -1,0 +1,20 @@
+name = "k8s-aws-buckets.<%=namespace%>"
+image = "npmwharf/k8s-bucketbrigade:latest"
+job = true
+command = "brigade"
+args = "create --buckets=$(BUCKETS) --acl=$(BUCKET_ACL) --owner=$(BUCKET_OWNER) --region=$(AWS_DEFAULT_REGION)"
+
+
+[scale]
+  containers = 1
+
+[env]
+  BUCKETS = "<%=buckets%>"
+  BUCKET_ACL = "<%=acl%>"
+  BUCKET_OWNER = "<%=owner%>"
+  AWS_DEFAULT_REGION = "<%=region%>"
+  AWS_ACCESS_KEY_ID = "<%=aws_key%>"
+  AWS_SECRET_ACCESS_KEY = "<%=aws_secret%>"
+
+[deploy]
+  pull = "Always"
