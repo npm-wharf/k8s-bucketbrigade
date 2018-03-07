@@ -36,7 +36,7 @@
     "standard-version": "^4.2.0"
   },
   "dependencies": {
-    "@google-cloud/storage": "^1.4.0",
+    "@google-cloud/storage": "^1.6.0",
     "aws-sdk": "^2.149.0",
     "bluebird": "^3.5.1",
     "yargs": "^10.0.3"
