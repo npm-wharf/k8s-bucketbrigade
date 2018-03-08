@@ -29,6 +29,11 @@ function build () {
       alias: 'g',
       describe: 'set an organization id to use when assigning private access to bucket',
       default: process.env.BUCKET_ORG
+    },
+    'projectId': {
+      alias: 'p',
+      describe: 'the projectId (only used for Google Store)',
+      default: process.env.GS_PROJECT_ID
     }
   }
 }
