@@ -1,6 +1,6 @@
 {
   "name": "k8s-bucketbrigade",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "create s3/gse buckets as part of cluster initialization in a Kubernetes job",
   "main": "src/index.js",
   "private": true,
