@@ -24,6 +24,10 @@ function build () {
       alias: 'o',
       describe: 'set an owner principle id (IAM or email depending on AWS vs GS)',
       default: process.env.BUCKET_OWNER
+    },
+    'org': {
+      alias: 'g',
+      describe: 'set an organization id to use when assigning private access to bucket'
     }
   }
 }

@@ -25,6 +25,7 @@ This approach also assumes that you will provide the private key for the account
 ### Setting Access To The Bucket(s)
 
  * `BUCKET_OWNER`
+ * `BUCKET_ORG` - used to set private, org-wide ownership
  * `BUCKET_ACL`
     * 'private' (default)
     * 'public-read'

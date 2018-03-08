@@ -86,38 +86,89 @@ function setGSACL (api, config, bucketName) {
       promises.push(
         api.gs.bucket(bucketName)
           .acl.writers.addAllUsers()
+          .then(
+            () => console.log(`      gave all users write access`),
+            err => {
+              console.err(`      failed to give all users write access: ${err.message}`)
+              throw err
+            }
+          )
       )
       promises.push(
         api.gs.bucket(bucketName)
           .acl.readers.addAllUsers()
+          .then(
+            () => console.log(`      gave anonymous users read access`),
+            err => {
+              console.err(`      failed to give anonymous users read access: ${err.message}`)
+              throw err
+            }
+          )
       )
       break
     case 'authenticated-read':
       promises.push(
         api.gs.bucket(bucketName)
             .acl.readers.addAllAuthenticatedUsers()
+            .then(
+              () => console.log(`      gave all authenticated users read access`),
+              err => {
+                console.err(`      failed to give all authenticated users read access: ${err.message}`)
+                throw err
+              }
+            )
       )
       break
     case 'public-read':
       promises.push(
         api.gs.bucket(bucketName)
           .acl.readers.addAllUsers()
+          .then(
+            () => console.log(`      gave anonymous users read access`),
+            err => {
+              console.err(`      failed to give anonymous users read access: ${err.message}`)
+              throw err
+            }
+          )
       )
       break
     case 'private':
-      promises.push(
-        api.gs.bucket(bucketName)
-          .acl.readers.addDomain(config.owner.split('@')[1])
-      )
+      if (config.org) {
+        promises.push(
+          api.gs.bucket(bucketName)
+            .acl.readers.addDomain(config.org)
+            .then(
+              () => console.log(`      gave org users read access`),
+              err => {
+                console.err(`      failed to give org users read access: ${err.message}`)
+                throw err
+              }
+            )
+        )
+      }
       break
   }
   promises.push(
     api.gs.bucket(bucketName)
-        .acl.readers.addProject(config.projectId)
+      .acl.readers.addProject(config.projectId)
+      .then(
+        () => console.log(`      gave project members read access`),
+        err => {
+          console.err(`      failed to give project members read access: ${err.message}`)
+          throw err
+        }
+      )
   )
   promises.push(
     api.gs.bucket(bucketName)
-        .acl.writers.addProject(config.projectId)
+      .acl.writers.addProject(config.projectId)
+      .then(
+        () => console.log(`      gave project members write access`),
+        err => {
+          console.err(`      failed to give project members write access: ${err.message}`)
+          throw err
+        }
+      )
   )
   return Promise.all(promises)
 }

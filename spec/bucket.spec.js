@@ -453,7 +453,8 @@ describe('Bucket', function () {
             {
               acl: 'private',
               projectId: 'supersecretproject',
-              owner: 'me@me.me'
+              owner: 'me@me.me',
+              org: 'me.me'
             },
             {gs: google}
           )
