@@ -242,12 +242,12 @@ describe('Bucket', function () {
 
           readersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('viewers-supersecretproject')
             .resolves()
 
           writersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('editors-supersecretproject')
             .resolves()
 
           bucket = Bucket(
@@ -308,12 +308,12 @@ describe('Bucket', function () {
 
           readersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('viewers-supersecretproject')
             .resolves()
 
           writersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('editors-supersecretproject')
             .resolves()
 
           bucket = Bucket(
@@ -374,12 +374,12 @@ describe('Bucket', function () {
 
           readersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('viewers-supersecretproject')
             .resolves()
 
           writersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('editors-supersecretproject')
             .resolves()
 
           bucket = Bucket(
@@ -441,12 +441,12 @@ describe('Bucket', function () {
 
           readersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('viewers-supersecretproject')
             .resolves()
 
           writersMock
             .expects('addProject')
-            .withArgs('supersecretproject')
+            .withArgs('editors-supersecretproject')
             .resolves()
 
           bucket = Bucket(
@@ -577,12 +577,12 @@ describe('Bucket', function () {
 
         readersMock
           .expects('addProject')
-          .withArgs('supersecretproject')
+          .withArgs('viewers-supersecretproject')
           .resolves()
 
         writersMock
           .expects('addProject')
-          .withArgs('supersecretproject')
+          .withArgs('editors-supersecretproject')
           .resolves()
 
         bucket = Bucket(

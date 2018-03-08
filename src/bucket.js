@@ -150,7 +150,7 @@ function setGSACL (api, config, bucketName) {
   }
   promises.push(
     api.gs.bucket(bucketName)
-      .acl.readers.addProject(config.projectId)
+      .acl.readers.addProject(`viewers-${config.projectId}`)
       .then(
         () => console.log(`      gave project members read access`),
         err => {
@@ -161,7 +161,7 @@ function setGSACL (api, config, bucketName) {
   )
   promises.push(
     api.gs.bucket(bucketName)
-      .acl.writers.addProject(config.projectId)
+      .acl.writers.addProject(`editors-${config.projectId}`)
       .then(
         () => console.log(`      gave project members write access`),
         err => {

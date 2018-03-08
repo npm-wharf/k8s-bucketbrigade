@@ -27,7 +27,8 @@ function build () {
     },
     'org': {
       alias: 'g',
-      describe: 'set an organization id to use when assigning private access to bucket'
+      describe: 'set an organization id to use when assigning private access to bucket',
+      default: process.env.BUCKET_ORG
     }
   }
 }
@@ -44,7 +45,7 @@ function handler (argv) {
 module.exports = function () {
   return {
     command: 'create',
-    desc: 'attempt to acquire certificates from LetsEncrypt',
+    desc: 'creates object store buckets and sets permissions',
     build,
     handler
   }
