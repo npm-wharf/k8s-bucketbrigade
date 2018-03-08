@@ -89,7 +89,7 @@ function setGSACL (api, config, bucketName) {
           .then(
             () => console.log(`      gave all users write access`),
             err => {
-              console.err(`      failed to give all users write access: ${err.message}`)
+              console.error(`      failed to give all users write access: ${err.message}`)
               throw err
             }
           )
@@ -100,7 +100,7 @@ function setGSACL (api, config, bucketName) {
           .then(
             () => console.log(`      gave anonymous users read access`),
             err => {
-              console.err(`      failed to give anonymous users read access: ${err.message}`)
+              console.error(`      failed to give anonymous users read access: ${err.message}`)
               throw err
             }
           )
@@ -113,7 +113,7 @@ function setGSACL (api, config, bucketName) {
             .then(
               () => console.log(`      gave all authenticated users read access`),
               err => {
-                console.err(`      failed to give all authenticated users read access: ${err.message}`)
+                console.error(`      failed to give all authenticated users read access: ${err.message}`)
                 throw err
               }
             )
@@ -126,7 +126,7 @@ function setGSACL (api, config, bucketName) {
           .then(
             () => console.log(`      gave anonymous users read access`),
             err => {
-              console.err(`      failed to give anonymous users read access: ${err.message}`)
+              console.error(`      failed to give anonymous users read access: ${err.message}`)
               throw err
             }
           )
@@ -140,7 +140,7 @@ function setGSACL (api, config, bucketName) {
             .then(
               () => console.log(`      gave org users read access`),
               err => {
-                console.err(`      failed to give org users read access: ${err.message}`)
+                console.error(`      failed to give org users read access: ${err.message}`)
                 throw err
               }
             )
@@ -154,7 +154,7 @@ function setGSACL (api, config, bucketName) {
       .then(
         () => console.log(`      gave project members read access`),
         err => {
-          console.err(`      failed to give project members read access: ${err.message}`)
+          console.error(`      failed to give project members read access: ${err.message}`)
           throw err
         }
       )
@@ -165,7 +165,7 @@ function setGSACL (api, config, bucketName) {
       .then(
         () => console.log(`      gave project members write access`),
         err => {
-          console.err(`      failed to give project members write access: ${err.message}`)
+          console.error(`      failed to give project members write access: ${err.message}`)
           throw err
         }
       )
