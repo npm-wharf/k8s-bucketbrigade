@@ -80,6 +80,13 @@ function setGSACL (api, config, bucketName) {
   const promises = [
     api.gs.bucket(bucketName)
       .acl.owners.addUser(config.owner)
+      .then(
+        () => console.log(`      gave account owner bucket ownership`),
+        err => {
+          console.error(`      failed to give account owner bucket ownership: ${err.message}`)
+          throw err
+        }
+      )
   ]
   switch (config.acl) {
     case 'public':
