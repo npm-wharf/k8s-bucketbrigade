@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# 1.2.0 (2018-03-08)
+
+
+### Bug Fixes
+
+* change org level permission set. Add more logging during permission setting. ([67b72eb](https://github.com/npm-wharf/k8s-bucketbrigade/commit/67b72eb))
+
+
+### Features
+
+* upgrade google storage API to 1.6.0 ([7713667](https://github.com/npm-wharf/k8s-bucketbrigade/commit/7713667))
+
+
+
 <a name="1.1.0"></a>
 # 1.1.0 (2018-03-07)
 
