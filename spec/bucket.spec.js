@@ -538,7 +538,7 @@ describe('Bucket', function () {
       })
     })
 
-    describe('when bucket creation fails during permission setting', function () {
+    describe('when bucket creation fails on setting ownership', function () {
       let gsMock, bucket, result
       let ownersMock, readersMock, writersMock
       before(function () {
@@ -559,7 +559,7 @@ describe('Bucket', function () {
         gsMock
           .expects('bucket')
           .withArgs('test-bucket')
-          .exactly(5)
+          .exactly(1)
           .returns(acl)
 
         ownersMock
@@ -567,23 +567,63 @@ describe('Bucket', function () {
           .withArgs('me@me.me')
           .rejects(new Error('no'))
 
-        readersMock
-          .expects('addAllUsers')
+        bucket = Bucket(
+          {
+            acl: 'public',
+            projectId: 'supersecretproject',
+            owner: 'me@me.me' // "memail"
+          },
+          {gs: google}
+        )
+        return bucket.createIfMissing('test-bucket')
+          .then(
+            null,
+            x => {
+              result = x
+            })
+      })
+
+      it('should create bucket with expected permissions', function () {
+        result.message.should.equal('Failed to set desired permissions on \'test-bucket\': no')
+        gsMock.verify()
+        ownersMock.verify()
+        readersMock.verify()
+        writersMock.verify()
+      })
+    })
+
+    describe('when bucket creation fails on granting writer permissions', function () {
+      let gsMock, bucket, result
+      let ownersMock, readersMock, writersMock
+      before(function () {
+        gsMock = sinon.mock(google)
+        ownersMock = sinon.mock(acl.acl.owners)
+        readersMock = sinon.mock(acl.acl.readers)
+        writersMock = sinon.mock(acl.acl.writers)
+        gsMock
+          .expects('getBuckets')
+          .once()
+          .resolves([[{name: 'other-bucket'}]])
+
+        gsMock
+          .expects('createBucket')
+          .withArgs('test-bucket')
+          .resolves()
+
+        gsMock
+          .expects('bucket')
+          .withArgs('test-bucket')
+          .exactly(2)
+          .returns(acl)
+
+        ownersMock
+          .expects('addUser')
+          .withArgs('me@me.me')
           .resolves()
 
         writersMock
           .expects('addAllUsers')
-          .resolves()
-
-        readersMock
-          .expects('addProject')
-          .withArgs('viewers-supersecretproject')
-          .resolves()
-
-        writersMock
-          .expects('addProject')
-          .withArgs('editors-supersecretproject')
-          .resolves()
+          .rejects(new Error('no'))
 
         bucket = Bucket(
           {

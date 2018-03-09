@@ -1,3 +1,5 @@
+const Promise = require('bluebird')
+
 function checkBucket (api, bucketName) {
   if (api.gs) {
     return api.gs.getBuckets()
@@ -78,7 +80,7 @@ function onGSBucket (api, config, bucketName) {
 
 function setGSACL (api, config, bucketName) {
   const promises = [
-    api.gs.bucket(bucketName)
+    () => api.gs.bucket(bucketName)
       .acl.owners.addUser(config.owner)
       .then(
         () => console.log(`      gave account owner bucket ownership`),
@@ -91,7 +93,7 @@ function setGSACL (api, config, bucketName) {
   switch (config.acl) {
     case 'public':
       promises.push(
-        api.gs.bucket(bucketName)
+        () => api.gs.bucket(bucketName)
           .acl.writers.addAllUsers()
           .then(
             () => console.log(`      gave all users write access`),
@@ -102,7 +104,7 @@ function setGSACL (api, config, bucketName) {
           )
       )
       promises.push(
-        api.gs.bucket(bucketName)
+        () => api.gs.bucket(bucketName)
           .acl.readers.addAllUsers()
           .then(
             () => console.log(`      gave anonymous users read access`),
@@ -115,7 +117,7 @@ function setGSACL (api, config, bucketName) {
       break
     case 'authenticated-read':
       promises.push(
-        api.gs.bucket(bucketName)
+        () => api.gs.bucket(bucketName)
             .acl.readers.addAllAuthenticatedUsers()
             .then(
               () => console.log(`      gave all authenticated users read access`),
@@ -128,7 +130,7 @@ function setGSACL (api, config, bucketName) {
       break
     case 'public-read':
       promises.push(
-        api.gs.bucket(bucketName)
+        () => api.gs.bucket(bucketName)
           .acl.readers.addAllUsers()
           .then(
             () => console.log(`      gave anonymous users read access`),
@@ -142,7 +144,7 @@ function setGSACL (api, config, bucketName) {
     case 'private':
       if (config.org) {
         promises.push(
-          api.gs.bucket(bucketName)
+          () => api.gs.bucket(bucketName)
             .acl.readers.addDomain(config.org)
             .then(
               () => console.log(`      gave org users read access`),
@@ -156,7 +158,7 @@ function setGSACL (api, config, bucketName) {
       break
   }
   promises.push(
-    api.gs.bucket(bucketName)
+    () => api.gs.bucket(bucketName)
       .acl.readers.addProject(`viewers-${config.projectId}`)
       .then(
         () => console.log(`      gave project members read access`),
@@ -167,7 +169,7 @@ function setGSACL (api, config, bucketName) {
       )
   )
   promises.push(
-    api.gs.bucket(bucketName)
+    () => api.gs.bucket(bucketName)
       .acl.writers.addProject(`editors-${config.projectId}`)
       .then(
         () => console.log(`      gave project members write access`),
@@ -177,7 +179,8 @@ function setGSACL (api, config, bucketName) {
         }
       )
   )
-  return Promise.all(promises)
+
+  return Promise.mapSeries(promises, p => p())
 }
 
 function createIfMissing (api, config, bucketName, tries = 3) {
