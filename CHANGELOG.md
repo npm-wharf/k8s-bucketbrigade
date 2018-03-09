@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.5"></a>
+## [1.2.5](https://github.com/npm-wharf/k8s-bucketbrigade/compare/v1.2.4...v1.2.5) (2018-03-09)
+
+
+### Bug Fixes
+
+* make ACL settings serially to avoid race condition errors from GS API ([4e58d73](https://github.com/npm-wharf/k8s-bucketbrigade/commit/4e58d73))
+
+
+
 <a name="1.2.4"></a>
 ## [1.2.4](https://github.com/npm-wharf/k8s-bucketbrigade/compare/v1.2.3...v1.2.4) (2018-03-08)
 
